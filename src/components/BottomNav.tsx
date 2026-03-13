@@ -1,10 +1,11 @@
-import { Home, CreditCard, Users, Plus } from 'lucide-react';
+import { Home, CreditCard, Users, Plus, Bell } from 'lucide-react';
 import { useNavigate, useLocation } from 'react-router-dom';
 import { t } from '@/lib/i18n';
 
 const tabs = [
   { path: '/', icon: Home, key: 'home' },
   { path: '/add-order', icon: Plus, key: 'newOrder' },
+  { path: '/reminders', icon: Bell, key: 'reminders' },
   { path: '/payments', icon: CreditCard, key: 'payments' },
   { path: '/customers', icon: Users, key: 'customers' },
 ];
@@ -22,14 +23,14 @@ const BottomNav = () => {
             <button
               key={path}
               onClick={() => navigate(path)}
-              className={`flex flex-col items-center gap-1 px-4 py-2 rounded-xl transition-colors min-w-[72px] ${
+              className={`flex flex-col items-center gap-1 px-3 py-2 rounded-xl transition-colors min-w-[60px] ${
                 active
                   ? 'text-primary bg-primary/10'
                   : 'text-muted-foreground hover:text-foreground'
               }`}
             >
-              <Icon size={26} strokeWidth={active ? 2.5 : 2} />
-              <span className="text-xs font-semibold">{t(key)}</span>
+              <Icon size={24} strokeWidth={active ? 2.5 : 2} />
+              <span className="text-[10px] font-semibold">{t(key)}</span>
             </button>
           );
         })}

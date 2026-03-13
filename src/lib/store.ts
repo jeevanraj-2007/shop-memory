@@ -1,5 +1,19 @@
 export type OrderStatus = 'Received' | 'In Progress' | 'Ready' | 'Delivered';
 
+export interface ChecklistItem {
+  id: string;
+  label: string;
+  done: boolean;
+}
+
+export interface Reminder {
+  id: string;
+  orderId: string;
+  date: string; // ISO date string
+  message: string;
+  sent: boolean;
+}
+
 export interface Order {
   id: string;
   customerName: string;
@@ -11,9 +25,13 @@ export interface Order {
   status: OrderStatus;
   createdAt: string;
   paymentReceived: boolean;
+  customFields?: Record<string, string>;
+  checklist?: ChecklistItem[];
+  reminderDate?: string;
 }
 
 const STORAGE_KEY = 'shop-memory-orders';
+const REMINDERS_KEY = 'shop-memory-reminders';
 
 export function getOrders(): Order[] {
   const data = localStorage.getItem(STORAGE_KEY);
@@ -46,6 +64,10 @@ export function updateOrder(id: string, updates: Partial<Order>) {
   }
 }
 
+export function getOrderById(id: string): Order | undefined {
+  return getOrders().find(o => o.id === id);
+}
+
 export function getTodaysOrders(): Order[] {
   const today = new Date().toISOString().split('T')[0];
   return getOrders().filter(o => o.createdAt.split('T')[0] === today);
@@ -58,6 +80,16 @@ export function getPendingPayments(): Order[] {
 export function getOverdueDeliveries(): Order[] {
   const today = new Date().toISOString().split('T')[0];
   return getOrders().filter(o => o.deliveryDate < today && o.status !== 'Delivered');
+}
+
+export function getUpcomingReminders(): Order[] {
+  const today = new Date().toISOString().split('T')[0];
+  return getOrders().filter(o => o.reminderDate && o.reminderDate >= today && o.status !== 'Delivered');
+}
+
+export function getOverdueReminders(): Order[] {
+  const today = new Date().toISOString().split('T')[0];
+  return getOrders().filter(o => o.reminderDate && o.reminderDate < today && o.status !== 'Delivered');
 }
 
 export function searchCustomers(query: string): Order[] {
