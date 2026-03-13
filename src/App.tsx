@@ -7,6 +7,7 @@ import AddOrder from "./pages/AddOrder";
 import PaymentTracking from "./pages/PaymentTracking";
 import CustomerHistory from "./pages/CustomerHistory";
 import SelectShopType from "./pages/SelectShopType";
+import LanguageSelect from "./pages/LanguageSelect";
 import NotFound from "./pages/NotFound";
 import { getSelectedCategory } from "@/lib/shopCategories";
 
