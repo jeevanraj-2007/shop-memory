@@ -1,6 +1,7 @@
 import { useNavigate } from 'react-router-dom';
-import { Plus, ShoppingBag, CreditCard, AlertTriangle } from 'lucide-react';
+import { Plus, ShoppingBag, CreditCard, AlertTriangle, Settings } from 'lucide-react';
 import { getTodaysOrders, getPendingPayments, getOverdueDeliveries } from '@/lib/store';
+import { getSelectedCategory } from '@/lib/shopCategories';
 import PageHeader from '@/components/PageHeader';
 import { useMemo } from 'react';
 
