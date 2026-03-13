@@ -32,6 +32,7 @@ const AppRoutes = () => {
         <Route path="/payments" element={<PaymentTracking />} />
         <Route path="/customers" element={<CustomerHistory />} />
         <Route path="/select-shop" element={<SelectShopType />} />
+        <Route path="/language" element={<LanguageSelect />} />
         <Route path="*" element={<NotFound />} />
       </Routes>
       <BottomNav />
