@@ -18,6 +18,7 @@ const AppRoutes = () => {
     return (
       <Routes>
         <Route path="/select-shop" element={<SelectShopType />} />
+        <Route path="/language" element={<LanguageSelect />} />
         <Route path="*" element={<Navigate to="/select-shop" replace />} />
       </Routes>
     );
