@@ -37,7 +37,7 @@ const AddOrder = () => {
       totalAmount: Number(form.totalAmount) || 0,
       status: form.status,
     });
-    toast.success('Order added!');
+    toast.success(`${category?.orderLabel || 'Order'} added!`);
     navigate('/');
   };
 
