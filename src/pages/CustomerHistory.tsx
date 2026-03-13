@@ -1,5 +1,6 @@
 import { useState, useMemo } from 'react';
 import { searchCustomers, Order } from '@/lib/store';
+import { getSelectedCategory } from '@/lib/shopCategories';
 import PageHeader from '@/components/PageHeader';
 import { Search } from 'lucide-react';
 
