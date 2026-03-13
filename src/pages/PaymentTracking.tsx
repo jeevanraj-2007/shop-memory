@@ -1,6 +1,7 @@
 import { useState, useMemo } from 'react';
 import { getPendingPayments, updateOrder, Order } from '@/lib/store';
 import { getSelectedCategory } from '@/lib/shopCategories';
+import { t } from '@/lib/i18n';
 import PageHeader from '@/components/PageHeader';
 import { toast } from 'sonner';
 import { Check, MessageCircle } from 'lucide-react';
@@ -12,7 +13,7 @@ const PaymentTracking = () => {
 
   const markPaid = (order: Order) => {
     updateOrder(order.id, { paymentReceived: true });
-    toast.success(`Payment marked for ${order.customerName}`);
+    toast.success(`${t('paymentMarked')} ${order.customerName}`);
     setRefresh(r => r + 1);
   };
 
@@ -34,12 +35,12 @@ const PaymentTracking = () => {
 
   return (
     <div className="max-w-lg mx-auto pb-28">
-      <PageHeader title="Pending Payments" />
+      <PageHeader title={t('pendingPayments')} />
 
       <div className="px-5 space-y-3">
         {pending.length === 0 ? (
           <div className="text-center py-16">
-            <p className="text-shop-lg text-muted-foreground font-semibold">🎉 No pending payments!</p>
+            <p className="text-shop-lg text-muted-foreground font-semibold">{t('noPendingPayments')}</p>
           </div>
         ) : (
           pending.map(order => {
@@ -55,7 +56,7 @@ const PaymentTracking = () => {
                   <div className="text-right">
                     <p className="text-shop-xl font-extrabold text-foreground">₹{due}</p>
                     {days > 0 && (
-                      <p className="text-shop-sm font-semibold text-destructive">{days} days overdue</p>
+                      <p className="text-shop-sm font-semibold text-destructive">{days} {t('daysOverdue')}</p>
                     )}
                   </div>
                 </div>
@@ -64,14 +65,14 @@ const PaymentTracking = () => {
                     onClick={() => markPaid(order)}
                     className="flex-1 bg-primary text-primary-foreground rounded-xl py-3 font-bold text-shop-sm flex items-center justify-center gap-2 hover:opacity-90 active:scale-[0.98]"
                   >
-                    <Check size={20} /> Paid
+                    <Check size={20} /> {t('paid')}
                   </button>
                   {order.phone && (
                     <button
                       onClick={() => sendReminder(order)}
                       className="bg-success text-success-foreground rounded-xl py-3 px-5 font-bold text-shop-sm flex items-center justify-center gap-2 hover:opacity-90 active:scale-[0.98]"
                     >
-                      <MessageCircle size={20} /> Remind
+                      <MessageCircle size={20} /> {t('remind')}
                     </button>
                   )}
                 </div>
