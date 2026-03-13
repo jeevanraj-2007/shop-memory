@@ -47,7 +47,7 @@ const AddOrder = () => {
       <form onSubmit={handleSubmit} className="px-5 space-y-4">
         <Field label="Customer Name" value={form.customerName} onChange={v => set('customerName', v)} placeholder="e.g. Ramesh Kumar" autoFocus />
         <Field label="Phone Number" value={form.phone} onChange={v => set('phone', v)} placeholder="e.g. 9876543210" type="tel" />
-        <Field label="Item / Work" value={form.item} onChange={v => set('item', v)} placeholder="e.g. Blue shirt stitching" />
+        <Field label={category?.itemLabel || 'Item / Work'} value={form.item} onChange={v => set('item', v)} placeholder={category?.itemPlaceholder || 'e.g. Blue shirt stitching'} />
         <Field label="Delivery Date" value={form.deliveryDate} onChange={v => set('deliveryDate', v)} type="date" />
         <div className="grid grid-cols-2 gap-3">
           <Field label="Total Amount (₹)" value={form.totalAmount} onChange={v => set('totalAmount', v)} type="number" placeholder="0" />
