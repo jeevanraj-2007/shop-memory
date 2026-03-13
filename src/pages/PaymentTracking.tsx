@@ -1,5 +1,6 @@
 import { useState, useMemo } from 'react';
 import { getPendingPayments, updateOrder, Order } from '@/lib/store';
+import { getSelectedCategory } from '@/lib/shopCategories';
 import PageHeader from '@/components/PageHeader';
 import { toast } from 'sonner';
 import { Check, MessageCircle } from 'lucide-react';
@@ -7,6 +8,7 @@ import { Check, MessageCircle } from 'lucide-react';
 const PaymentTracking = () => {
   const [refresh, setRefresh] = useState(0);
   const pending = useMemo(() => getPendingPayments(), [refresh]);
+  const cat = getSelectedCategory();
 
   const markPaid = (order: Order) => {
     updateOrder(order.id, { paymentReceived: true });
@@ -17,7 +19,9 @@ const PaymentTracking = () => {
   const sendReminder = (order: Order) => {
     const due = order.totalAmount - order.advancePaid;
     const msg = encodeURIComponent(
-      `Hello ${order.customerName}, this is a friendly reminder about your pending payment of ₹${due} for "${order.item}". Please visit us at your convenience. Thank you!`
+      cat
+        ? cat.reminderTemplate(order.customerName, due, order.item)
+        : `Hello ${order.customerName}, this is a friendly reminder about your pending payment of ₹${due} for "${order.item}". Please visit us at your convenience. Thank you!`
     );
     const phone = order.phone.replace(/\D/g, '');
     window.open(`https://wa.me/${phone.length === 10 ? '91' + phone : phone}?text=${msg}`, '_blank');
