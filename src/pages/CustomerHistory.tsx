@@ -32,7 +32,7 @@ const CustomerHistory = () => {
 
   return (
     <div className="max-w-lg mx-auto pb-28">
-      <PageHeader title="Customers" />
+      <PageHeader title={`${cat?.customerLabel || 'Customer'}s`} />
 
       <div className="px-5">
         <div className="relative mb-5">
