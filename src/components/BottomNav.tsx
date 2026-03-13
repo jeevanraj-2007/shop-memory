@@ -1,11 +1,12 @@
 import { Home, CreditCard, Users, Plus } from 'lucide-react';
 import { useNavigate, useLocation } from 'react-router-dom';
+import { t } from '@/lib/i18n';
 
 const tabs = [
-  { path: '/', icon: Home, label: 'Home' },
-  { path: '/add-order', icon: Plus, label: 'New Order' },
-  { path: '/payments', icon: CreditCard, label: 'Payments' },
-  { path: '/customers', icon: Users, label: 'Customers' },
+  { path: '/', icon: Home, key: 'home' },
+  { path: '/add-order', icon: Plus, key: 'newOrder' },
+  { path: '/payments', icon: CreditCard, key: 'payments' },
+  { path: '/customers', icon: Users, key: 'customers' },
 ];
 
 const BottomNav = () => {
@@ -15,7 +16,7 @@ const BottomNav = () => {
   return (
     <nav className="fixed bottom-0 left-0 right-0 bg-card border-t border-border shadow-lg z-50">
       <div className="max-w-lg mx-auto flex justify-around py-2">
-        {tabs.map(({ path, icon: Icon, label }) => {
+        {tabs.map(({ path, icon: Icon, key }) => {
           const active = location.pathname === path;
           return (
             <button
@@ -28,7 +29,7 @@ const BottomNav = () => {
               }`}
             >
               <Icon size={26} strokeWidth={active ? 2.5 : 2} />
-              <span className="text-xs font-semibold">{label}</span>
+              <span className="text-xs font-semibold">{t(key)}</span>
             </button>
           );
         })}

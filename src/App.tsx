@@ -7,6 +7,7 @@ import AddOrder from "./pages/AddOrder";
 import PaymentTracking from "./pages/PaymentTracking";
 import CustomerHistory from "./pages/CustomerHistory";
 import SelectShopType from "./pages/SelectShopType";
+import LanguageSelect from "./pages/LanguageSelect";
 import NotFound from "./pages/NotFound";
 import { getSelectedCategory } from "@/lib/shopCategories";
 
@@ -17,6 +18,7 @@ const AppRoutes = () => {
     return (
       <Routes>
         <Route path="/select-shop" element={<SelectShopType />} />
+        <Route path="/language" element={<LanguageSelect />} />
         <Route path="*" element={<Navigate to="/select-shop" replace />} />
       </Routes>
     );
@@ -30,6 +32,7 @@ const AppRoutes = () => {
         <Route path="/payments" element={<PaymentTracking />} />
         <Route path="/customers" element={<CustomerHistory />} />
         <Route path="/select-shop" element={<SelectShopType />} />
+        <Route path="/language" element={<LanguageSelect />} />
         <Route path="*" element={<NotFound />} />
       </Routes>
       <BottomNav />

@@ -1,33 +1,35 @@
 import { useNavigate } from 'react-router-dom';
-import { Plus, ShoppingBag, CreditCard, AlertTriangle, Settings } from 'lucide-react';
+import { Plus, ShoppingBag, CreditCard, AlertTriangle, Settings, Globe } from 'lucide-react';
 import { getTodaysOrders, getPendingPayments, getOverdueDeliveries } from '@/lib/store';
 import { getSelectedCategory } from '@/lib/shopCategories';
+import { t, tCat } from '@/lib/i18n';
 import { useMemo } from 'react';
 
 const Dashboard = () => {
   const navigate = useNavigate();
   const cat = getSelectedCategory();
+  const catId = cat?.id;
   const todayCount = useMemo(() => getTodaysOrders().length, []);
   const pendingCount = useMemo(() => getPendingPayments().length, []);
   const overdueCount = useMemo(() => getOverdueDeliveries().length, []);
 
   const cards = [
     {
-      label: `Today's ${cat?.orderLabelPlural || 'Orders'}`,
+      label: tCat('todaysOrders', catId),
       count: todayCount,
       icon: ShoppingBag,
       color: 'bg-primary/10 text-primary',
       onClick: () => {},
     },
     {
-      label: 'Pending Payments',
+      label: t('pendingPayments'),
       count: pendingCount,
       icon: CreditCard,
       color: 'bg-accent/15 text-accent',
       onClick: () => navigate('/payments'),
     },
     {
-      label: `Overdue ${cat?.deliveryLabel || 'Delivery'}`,
+      label: tCat('overdueDelivery', catId),
       count: overdueCount,
       icon: AlertTriangle,
       color: 'bg-destructive/10 text-destructive',
@@ -39,18 +41,27 @@ const Dashboard = () => {
     <div className="max-w-lg mx-auto pb-28">
       <div className="flex items-center justify-between px-5 pt-6 pb-4">
         <div>
-          <h1 className="text-shop-xl font-extrabold text-foreground">Shop Memory</h1>
+          <h1 className="text-shop-xl font-extrabold text-foreground">{t('shopMemory')}</h1>
           {cat && (
-            <p className="text-shop-sm text-muted-foreground font-semibold">{cat.emoji} {cat.label}</p>
+            <p className="text-shop-sm text-muted-foreground font-semibold">{cat.emoji} {t(`cat.${cat.id}`)}</p>
           )}
         </div>
-        <button
-          onClick={() => navigate('/select-shop')}
-          className="p-3 rounded-xl hover:bg-secondary text-muted-foreground"
-          title="Change shop type"
-        >
-          <Settings size={22} />
-        </button>
+        <div className="flex gap-1">
+          <button
+            onClick={() => navigate('/language')}
+            className="p-3 rounded-xl hover:bg-secondary text-muted-foreground"
+            title={t('language')}
+          >
+            <Globe size={22} />
+          </button>
+          <button
+            onClick={() => navigate('/select-shop')}
+            className="p-3 rounded-xl hover:bg-secondary text-muted-foreground"
+            title={t('changeShopType')}
+          >
+            <Settings size={22} />
+          </button>
+        </div>
       </div>
 
       <div className="px-5 space-y-4">
@@ -75,7 +86,7 @@ const Dashboard = () => {
           className="w-full bg-primary text-primary-foreground rounded-2xl p-5 shadow-md flex items-center justify-center gap-3 text-shop-lg font-bold mt-6 hover:opacity-90 transition-opacity active:scale-[0.98]"
         >
           <Plus size={28} />
-          {cat?.addButtonText || 'Add New Order'}
+          {tCat('addNewOrder', catId)}
         </button>
       </div>
     </div>
