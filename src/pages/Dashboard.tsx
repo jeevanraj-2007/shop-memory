@@ -1,11 +1,13 @@
 import { useNavigate } from 'react-router-dom';
-import { Plus, ShoppingBag, CreditCard, AlertTriangle } from 'lucide-react';
+import { Plus, ShoppingBag, CreditCard, AlertTriangle, Settings } from 'lucide-react';
 import { getTodaysOrders, getPendingPayments, getOverdueDeliveries } from '@/lib/store';
+import { getSelectedCategory } from '@/lib/shopCategories';
 import PageHeader from '@/components/PageHeader';
 import { useMemo } from 'react';
 
 const Dashboard = () => {
   const navigate = useNavigate();
+  const category = getSelectedCategory();
   const todayCount = useMemo(() => getTodaysOrders().length, []);
   const pendingCount = useMemo(() => getPendingPayments().length, []);
   const overdueCount = useMemo(() => getOverdueDeliveries().length, []);
@@ -36,7 +38,21 @@ const Dashboard = () => {
 
   return (
     <div className="max-w-lg mx-auto pb-28">
-      <PageHeader title="Shop Memory" />
+      <div className="flex items-center justify-between px-5 pt-6 pb-4">
+        <div>
+          <h1 className="text-shop-xl font-extrabold text-foreground">Shop Memory</h1>
+          {category && (
+            <p className="text-shop-sm text-muted-foreground font-semibold">{category.emoji} {category.label}</p>
+          )}
+        </div>
+        <button
+          onClick={() => navigate('/select-shop')}
+          className="p-3 rounded-xl hover:bg-secondary text-muted-foreground"
+          title="Change shop type"
+        >
+          <Settings size={22} />
+        </button>
+      </div>
 
       <div className="px-5 space-y-4">
         {cards.map(({ label, count, icon: Icon, color, onClick }) => (
