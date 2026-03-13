@@ -9,6 +9,7 @@ const statuses: OrderStatus[] = ['Received', 'In Progress', 'Ready', 'Delivered'
 
 const AddOrder = () => {
   const navigate = useNavigate();
+  const category = getSelectedCategory();
   const [form, setForm] = useState({
     customerName: '',
     phone: '',
