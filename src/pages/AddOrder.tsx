@@ -78,7 +78,7 @@ const AddOrder = () => {
           type="submit"
           className="w-full bg-primary text-primary-foreground rounded-2xl p-5 text-shop-lg font-bold mt-4 hover:opacity-90 transition-opacity active:scale-[0.98]"
         >
-          Save Order
+          Save {category?.orderLabel || 'Order'}
         </button>
       </form>
     </div>
