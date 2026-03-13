@@ -7,6 +7,7 @@ import { useMemo } from 'react';
 
 const Dashboard = () => {
   const navigate = useNavigate();
+  const category = getSelectedCategory();
   const todayCount = useMemo(() => getTodaysOrders().length, []);
   const pendingCount = useMemo(() => getPendingPayments().length, []);
   const overdueCount = useMemo(() => getOverdueDeliveries().length, []);
