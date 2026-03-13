@@ -2,19 +2,18 @@ import { useNavigate } from 'react-router-dom';
 import { Plus, ShoppingBag, CreditCard, AlertTriangle, Settings } from 'lucide-react';
 import { getTodaysOrders, getPendingPayments, getOverdueDeliveries } from '@/lib/store';
 import { getSelectedCategory } from '@/lib/shopCategories';
-import PageHeader from '@/components/PageHeader';
 import { useMemo } from 'react';
 
 const Dashboard = () => {
   const navigate = useNavigate();
-  const category = getSelectedCategory();
+  const cat = getSelectedCategory();
   const todayCount = useMemo(() => getTodaysOrders().length, []);
   const pendingCount = useMemo(() => getPendingPayments().length, []);
   const overdueCount = useMemo(() => getOverdueDeliveries().length, []);
 
   const cards = [
     {
-      label: "Today's Orders",
+      label: `Today's ${cat?.orderLabelPlural || 'Orders'}`,
       count: todayCount,
       icon: ShoppingBag,
       color: 'bg-primary/10 text-primary',
@@ -28,7 +27,7 @@ const Dashboard = () => {
       onClick: () => navigate('/payments'),
     },
     {
-      label: 'Overdue Deliveries',
+      label: `Overdue ${cat?.deliveryLabel || 'Delivery'}`,
       count: overdueCount,
       icon: AlertTriangle,
       color: 'bg-destructive/10 text-destructive',
@@ -41,8 +40,8 @@ const Dashboard = () => {
       <div className="flex items-center justify-between px-5 pt-6 pb-4">
         <div>
           <h1 className="text-shop-xl font-extrabold text-foreground">Shop Memory</h1>
-          {category && (
-            <p className="text-shop-sm text-muted-foreground font-semibold">{category.emoji} {category.label}</p>
+          {cat && (
+            <p className="text-shop-sm text-muted-foreground font-semibold">{cat.emoji} {cat.label}</p>
           )}
         </div>
         <button
@@ -76,7 +75,7 @@ const Dashboard = () => {
           className="w-full bg-primary text-primary-foreground rounded-2xl p-5 shadow-md flex items-center justify-center gap-3 text-shop-lg font-bold mt-6 hover:opacity-90 transition-opacity active:scale-[0.98]"
         >
           <Plus size={28} />
-          Add New Order
+          {cat?.addButtonText || 'Add New Order'}
         </button>
       </div>
     </div>
