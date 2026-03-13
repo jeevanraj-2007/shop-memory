@@ -1,73 +1,97 @@
-# Welcome to your Lovable project
+# Simple Store Mind – Smart Shop Management System
 
-## Project info
+## Live Demo
 
-**URL**: https://lovable.dev/projects/REPLACE_WITH_PROJECT_ID
+https://simple-store-mind.lovable.app/select-shop
 
-## How can I edit this code?
+## Problem
 
-There are several ways of editing your application.
+Many small business owners manage their shop using **memory and WhatsApp messages** instead of a proper system.
 
-**Use Lovable**
+Orders, delivery dates, and pending payments are often not recorded anywhere. This creates confusion when customers ask about their orders and leads to delayed payments.
 
-Simply visit the [Lovable Project](https://lovable.dev/projects/REPLACE_WITH_PROJECT_ID) and start prompting.
+In India, millions of micro-businesses operate without digital tools, making daily operations inefficient.
 
-Changes made via Lovable will be committed automatically to this repo.
+## Solution
 
-**Use your preferred IDE**
+Simple Store Mind is a **simple digital shop management system** designed for small business owners with minimal technical experience.
 
-If you want to work locally using your own IDE, you can clone this repo and push changes. Pushed changes will also be reflected in Lovable.
+It helps shop owners quickly record orders, track payments, manage delivery deadlines, and store customer details in one place.
 
-The only requirement is having Node.js & npm installed - [install with nvm](https://github.com/nvm-sh/nvm#installing-and-updating)
+The goal is to replace **memory-based management with a simple digital workflow**.
 
-Follow these steps:
+## Core Features
 
-```sh
-# Step 1: Clone the repository using the project's Git URL.
-git clone <YOUR_GIT_URL>
+### Order Logging
 
-# Step 2: Navigate to the project directory.
-cd <YOUR_PROJECT_NAME>
+* Create orders quickly
+* Record customer name, order details, delivery date, and advance payment
+* Track order status:
 
-# Step 3: Install the necessary dependencies.
-npm i
+  * Received
+  * In Progress
+  * Ready
+  * Delivered
 
-# Step 4: Start the development server with auto-reloading and an instant preview.
+### Payment Tracking
+
+* Record advance payments
+* Track remaining balance
+* View customers with pending payments
+
+### Delivery Reminders
+
+* See orders due today
+* Identify overdue orders
+* Notify customers when orders are ready
+
+### Customer Management
+
+* Maintain a list of customers
+* View order history
+* Track total payments and outstanding balances
+
+## Technology Stack
+
+* React
+* TypeScript
+* Vite
+* Tailwind CSS
+* shadcn-ui
+
+## Installation
+
+Clone the repository
+
+git clone https://github.com/YOUR_USERNAME/YOUR_REPOSITORY.git
+
+Navigate to the project folder
+
+cd YOUR_REPOSITORY
+
+Install dependencies
+
+npm install
+
+Start the development server
+
 npm run dev
-```
 
-**Edit a file directly in GitHub**
+## Target Users
 
-- Navigate to the desired file(s).
-- Click the "Edit" button (pencil icon) at the top right of the file view.
-- Make your changes and commit the changes.
+Small business owners such as:
 
-**Use GitHub Codespaces**
+* Tailors
+* Repair shops
+* Hardware stores
+* Tutors
+* Local service providers
 
-- Navigate to the main page of your repository.
-- Click on the "Code" button (green button) near the top right.
-- Select the "Codespaces" tab.
-- Click on "New codespace" to launch a new Codespace environment.
-- Edit files directly within the Codespace and commit and push your changes once you're done.
+## Impact
 
-## What technologies are used for this project?
+This system helps small businesses move from **memory-based operations to organized digital management**, improving efficiency and customer trust.
 
-This project is built with:
-
-- Vite
-- TypeScript
-- React
-- shadcn-ui
-- Tailwind CSS
-
-## How can I deploy this project?
-
-Simply open [Lovable](https://lovable.dev/projects/REPLACE_WITH_PROJECT_ID) and click on Share -> Publish.
-
-## Can I connect a custom domain to my Lovable project?
-
-Yes, you can!
-
-To connect a domain, navigate to Project > Settings > Domains and click Connect Domain.
-
-Read more here: [Setting up a custom domain](https://docs.lovable.dev/features/custom-domain#custom-domain)
+## Author
+Jeevan
+Poojitha
+Rachana
