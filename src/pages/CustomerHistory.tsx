@@ -5,6 +5,7 @@ import PageHeader from '@/components/PageHeader';
 import { Search } from 'lucide-react';
 
 const CustomerHistory = () => {
+  const cat = getSelectedCategory();
   const [query, setQuery] = useState('');
   const results = useMemo(() => (query.length >= 2 ? searchCustomers(query) : []), [query]);
 
