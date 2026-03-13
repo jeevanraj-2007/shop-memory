@@ -1,6 +1,7 @@
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { addOrder, OrderStatus } from '@/lib/store';
+import { getSelectedCategory } from '@/lib/shopCategories';
 import PageHeader from '@/components/PageHeader';
 import { toast } from 'sonner';
 
