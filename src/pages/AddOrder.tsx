@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { addOrder, OrderStatus } from '@/lib/store';
+import { addOrder, OrderStatus, ChecklistItem } from '@/lib/store';
 import { getSelectedCategory } from '@/lib/shopCategories';
 import { t, tCat } from '@/lib/i18n';
 import PageHeader from '@/components/PageHeader';
@@ -25,9 +25,12 @@ const AddOrder = () => {
     advancePaid: '',
     totalAmount: '',
     status: 'Received' as OrderStatus,
+    reminderDate: '',
   });
+  const [customFields, setCustomFields] = useState<Record<string, string>>({});
 
   const set = (key: string, value: string) => setForm(f => ({ ...f, [key]: value }));
+  const setCF = (key: string, value: string) => setCustomFields(f => ({ ...f, [key]: value }));
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
@@ -35,6 +38,14 @@ const AddOrder = () => {
       toast.error(t('fillRequired'));
       return;
     }
+
+    // Build default checklist from category
+    const checklist: ChecklistItem[] = (category?.defaultChecklist || []).map(key => ({
+      id: crypto.randomUUID(),
+      label: key,
+      done: false,
+    }));
+
     addOrder({
       customerName: form.customerName,
       phone: form.phone,
@@ -43,6 +54,9 @@ const AddOrder = () => {
       advancePaid: Number(form.advancePaid) || 0,
       totalAmount: Number(form.totalAmount) || 0,
       status: form.status,
+      customFields: Object.keys(customFields).length > 0 ? customFields : undefined,
+      checklist: checklist.length > 0 ? checklist : undefined,
+      reminderDate: form.reminderDate || undefined,
     });
     toast.success(tCat('orderAdded', catId));
     navigate('/');
@@ -55,7 +69,22 @@ const AddOrder = () => {
         <Field label={tCat('customerName', catId)} value={form.customerName} onChange={v => set('customerName', v)} placeholder="e.g. Ramesh Kumar" autoFocus />
         <Field label={t('phoneNumber')} value={form.phone} onChange={v => set('phone', v)} placeholder="e.g. 9876543210" type="tel" />
         <Field label={catId ? t(`item.${catId}`) : t('item.other')} value={form.item} onChange={v => set('item', v)} placeholder={category?.itemPlaceholder || 'e.g. Blue shirt stitching'} />
+
+        {/* Category-specific custom fields */}
+        {category?.customFields.map(cf => (
+          <Field
+            key={cf.key}
+            label={t(cf.labelKey)}
+            value={customFields[cf.key] || ''}
+            onChange={v => setCF(cf.key, v)}
+            placeholder={cf.placeholder}
+            type={cf.type === 'number' ? 'number' : 'text'}
+          />
+        ))}
+
         <Field label={tCat('deliveryDate', catId)} value={form.deliveryDate} onChange={v => set('deliveryDate', v)} type="date" />
+        <Field label={t('reminderDate')} value={form.reminderDate} onChange={v => set('reminderDate', v)} type="date" />
+
         <div className="grid grid-cols-2 gap-3">
           <Field label={t('totalAmount')} value={form.totalAmount} onChange={v => set('totalAmount', v)} type="number" placeholder="0" />
           <Field label={t('advancePaid')} value={form.advancePaid} onChange={v => set('advancePaid', v)} type="number" placeholder="0" />

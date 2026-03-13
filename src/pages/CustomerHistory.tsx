@@ -1,4 +1,5 @@
 import { useState, useMemo } from 'react';
+import { useNavigate } from 'react-router-dom';
 import { searchCustomers, Order } from '@/lib/store';
 import { getSelectedCategory } from '@/lib/shopCategories';
 import { t, tCat } from '@/lib/i18n';
@@ -7,6 +8,7 @@ import { Search } from 'lucide-react';
 
 const CustomerHistory = () => {
   const cat = getSelectedCategory();
+  const navigate = useNavigate();
   const [query, setQuery] = useState('');
   const results = useMemo(() => (query.length >= 2 ? searchCustomers(query) : []), [query]);
 
@@ -75,7 +77,11 @@ const CustomerHistory = () => {
                 </div>
                 <div className="divide-y divide-border">
                   {group.orders.map(o => (
-                    <div key={o.id} className="px-5 py-3 flex justify-between items-center">
+                    <button
+                      key={o.id}
+                      onClick={() => navigate(`/order/${o.id}`)}
+                      className="w-full px-5 py-3 flex justify-between items-center hover:bg-secondary/30 transition-colors text-left"
+                    >
                       <div>
                         <p className="text-shop-sm font-semibold text-foreground">{o.item}</p>
                         <p className="text-xs text-muted-foreground">{new Date(o.createdAt).toLocaleDateString()}</p>
@@ -83,7 +89,7 @@ const CustomerHistory = () => {
                       <span className={`text-xs font-bold px-3 py-1 rounded-full ${statusColor(o.status)}`}>
                         {t(statusKey[o.status] || 'received')}
                       </span>
-                    </div>
+                    </button>
                   ))}
                 </div>
               </div>

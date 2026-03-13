@@ -8,6 +8,8 @@ import PaymentTracking from "./pages/PaymentTracking";
 import CustomerHistory from "./pages/CustomerHistory";
 import SelectShopType from "./pages/SelectShopType";
 import LanguageSelect from "./pages/LanguageSelect";
+import Reminders from "./pages/Reminders";
+import OrderDetail from "./pages/OrderDetail";
 import NotFound from "./pages/NotFound";
 import { getSelectedCategory } from "@/lib/shopCategories";
 
@@ -31,6 +33,8 @@ const AppRoutes = () => {
         <Route path="/add-order" element={<AddOrder />} />
         <Route path="/payments" element={<PaymentTracking />} />
         <Route path="/customers" element={<CustomerHistory />} />
+        <Route path="/reminders" element={<Reminders />} />
+        <Route path="/order/:id" element={<OrderDetail />} />
         <Route path="/select-shop" element={<SelectShopType />} />
         <Route path="/language" element={<LanguageSelect />} />
         <Route path="*" element={<NotFound />} />

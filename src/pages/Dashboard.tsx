@@ -1,6 +1,6 @@
 import { useNavigate } from 'react-router-dom';
-import { Plus, ShoppingBag, CreditCard, AlertTriangle, Settings, Globe } from 'lucide-react';
-import { getTodaysOrders, getPendingPayments, getOverdueDeliveries } from '@/lib/store';
+import { Plus, ShoppingBag, CreditCard, AlertTriangle, Settings, Globe, Bell } from 'lucide-react';
+import { getTodaysOrders, getPendingPayments, getOverdueDeliveries, getUpcomingReminders, getOverdueReminders } from '@/lib/store';
 import { getSelectedCategory } from '@/lib/shopCategories';
 import { t, tCat } from '@/lib/i18n';
 import { useMemo } from 'react';
@@ -12,6 +12,7 @@ const Dashboard = () => {
   const todayCount = useMemo(() => getTodaysOrders().length, []);
   const pendingCount = useMemo(() => getPendingPayments().length, []);
   const overdueCount = useMemo(() => getOverdueDeliveries().length, []);
+  const reminderCount = useMemo(() => getUpcomingReminders().length + getOverdueReminders().length, []);
 
   const cards = [
     {
@@ -34,6 +35,13 @@ const Dashboard = () => {
       icon: AlertTriangle,
       color: 'bg-destructive/10 text-destructive',
       onClick: () => {},
+    },
+    {
+      label: t('reminders'),
+      count: reminderCount,
+      icon: Bell,
+      color: 'bg-warning/10 text-warning',
+      onClick: () => navigate('/reminders'),
     },
   ];
 
